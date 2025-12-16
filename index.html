@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 أداة تشفير بايثون المتقدمة | Python Encryption Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+        
+        :root {
+            --primary: #00ff00;
+            --secondary: #0088ff;
+            --dark: #0a0a0a;
+            --darker: #000000;
+            --light: #00ffff;
+            --glow: rgba(0, 255, 0, 0.7);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        body {
+            background-color: var(--darker);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 0, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 136, 255, 0.05) 0%, transparent 20%),
+                linear-gradient(45deg, #000000 25%, #0a0a0a 25%, #0a0a0a 50%, #000000 50%, #000000 75%, #0a0a0a 75%, #0a0a0a);
+            background-size: 100px 100px;
+            color: var(--primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glitch {
+            font-size: 4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            position: relative;
+            text-shadow: 0.05em 0 0 var(--secondary), -0.025em -0.05em 0 var(--primary);
+            animation: glitch 2s infinite;
+            margin-bottom: 10px;
+        }
+        
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 var(--secondary), -0.025em -0.05em 0 var(--primary); }
+            15% { text-shadow: 0.05em 0 0 var(--secondary), -0.05em -0.025em 0 var(--primary); }
+            50% { text-shadow: -0.05em -0.025em 0 var(--secondary), 0.025em 0.025em 0 var(--primary); }
+            100% { text-shadow: 0.05em 0 0 var(--secondary), -0.025em -0.05em 0 var(--primary); }
+        }
+        
+        .developer {
+            color: var(--light);
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+            padding: 10px 20px;
+            border: 2px solid var(--light);
+            border-radius: 5px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 5px var(--light); }
+            50% { box-shadow: 0 0 20px var(--light); }
+        }
+        
+        .tagline {
+            color: #fff;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+            text-shadow: 0 0 10px var(--glow);
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Upload Section */
+        .upload-section {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 30px var(--glow);
+            backdrop-filter: blur(10px);
+        }
+        
+        .upload-area {
+            border: 3px dashed var(--secondary);
+            border-radius: 10px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--light);
+            box-shadow: 0 0 20px var(--secondary);
+        }
+        
+        .upload-area i {
+            font-size: 4rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .file-name {
+            margin-top: 10px;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        
+        /* Methods Section */
+        .methods-section {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--secondary);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(0, 136, 255, 0.5);
+            backdrop-filter: blur(10px);
+        }
+        
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .method-btn {
+            background: linear-gradient(45deg, var(--dark), #111);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .method-btn:hover {
+            background: linear-gradient(45deg, #111, var(--dark));
+            border-color: var(--light);
+            box-shadow: 0 0 15px var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .method-btn.active {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: #000;
+            font-weight: 700;
+        }
+        
+        /* Encryption Section */
+        .encryption-section {
+            grid-column: 1 / -1;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--light);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+        }
+        
+        .code-area {
+            width: 100%;
+            min-height: 300px;
+            background: #000;
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            padding: 20px;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            resize: vertical;
+            margin-bottom: 20px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .btn-encrypt {
+            background: linear-gradient(45deg, var(--primary), #00cc00);
+            color: #000;
+        }
+        
+        .btn-download {
+            background: linear-gradient(45deg, var(--secondary), #0066cc);
+            color: #fff;
+        }
+        
+        .btn-clear {
+            background: linear-gradient(45deg, #ff3300, #cc0000);
+            color: #fff;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--secondary);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--light);
+            text-shadow: 0 0 10px var(--light);
+        }
+        
+        .stat-label {
+            color: #fff;
+            font-size: 1rem;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid rgba(0, 255, 0, 0.3);
+            color: #fff;
+        }
+        
+        /* Terminal Effect */
+        .terminal-line {
+            display: inline-block;
+            overflow: hidden;
+            border-right: 2px solid var(--primary);
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary) }
+        }
+        
+        /* Matrix Rain Effect */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .glitch {
+                font-size: 2.5rem;
+            }
+            
+            .developer {
+                font-size: 1.2rem;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix Rain Background -->
+    <canvas id="matrixCanvas" class="matrix-bg"></canvas>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="glitch">🔥 أداة تشفير بايثون المتقدمة</h1>
+            <div class="developer">
+                <i class="fas fa-code"></i> المطور: @d_dwu <i class="fas fa-terminal"></i>
+            </div>
+            <p class="tagline terminal-line">
+                أداة متطورة لتشفير ملفات بايثون باستخدام خوارزميات متعددة الطبقات - أدخل عالم الحماية الرقمية
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Upload Section -->
+            <div class="upload-section">
+                <h2><i class="fas fa-upload"></i> رفع الملف</h2>
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-file-code"></i>
+                    <p>اسحب وأفلت ملف Python هنا أو انقر للاختيار</p>
+                    <p>الحد الأقصى: 10MB | صيغة: .py فقط</p>
+                    <input type="file" id="fileInput" class="file-input" accept=".py">
+                    <div class="file-name" id="fileName">لم يتم اختيار ملف</div>
+                </div>
+                
+                <div class="file-info" id="fileInfo" style="display: none;">
+                    <h3><i class="fas fa-info-circle"></i> معلومات الملف</h3>
+                    <div id="fileDetails"></div>
+                </div>
+            </div>
+            
+            <!-- Methods Section -->
+            <div class="methods-section">
+                <h2><i class="fas fa-shield-alt"></i> طرق التشفير</h2>
+                <p>اختر طريقة التشفير المناسبة:</p>
+                
+                <div class="methods-grid">
+                    <div class="method-btn" data-method="base64">🔰 Base64</div>
+                    <div class="method-btn" data-method="zlib">🌀 Zlib</div>
+                    <div class="method-btn" data-method="lambda">💫 Lambda</div>
+                    <div class="method-btn" data-method="zlib_base16">⚡ Zlib + Base16</div>
+                    <div class="method-btn" data-method="marshal_zlib">🔐 Marshal + Zlib</div>
+                    <div class="method-btn" data-method="base32_zlib">🛡️ Base32 + Zlib</div>
+                    <div class="method-btn" data-method="triple_layer">🎯 Triple Layer</div>
+                    <div class="method-btn" data-method="aes_simulated">🔐 AES Simulated</div>
+                    <div class="method-btn" data-method="reverse_encode">🌀 Reverse + Encode</div>
+                </div>
+                
+                <div style="margin-top: 20px; padding: 15px; background: rgba(0,255,0,0.1); border-radius: 8px;">
+                    <p><i class="fas fa-lightbulb"></i> <strong>الطريقة المختارة:</strong> <span id="selectedMethod">لم يتم الاختيار</span></p>
+                </div>
+            </div>
+            
+            <!-- Encryption Section -->
+            <div class="encryption-section">
+                <h2><i class="fas fa-lock"></i> منطقة التشفير</h2>
+                
+                <textarea class="code-area" id="codeArea" placeholder="سيعرض هنا محتوى الملف أو الكود المشفر..."></textarea>
+                
+                <div class="btn-group">
+                    <button class="btn btn-encrypt" id="encryptBtn">
+                        <i class="fas fa-key"></i> تشفير الملف
+                    </button>
+                    <button class="btn btn-download" id="downloadBtn" disabled>
+                        <i class="fas fa-download"></i> تحميل المشفر
+                    </button>
+                    <button class="btn btn-clear" id="clearBtn">
+                        <i class="fas fa-trash"></i> مسح الكل
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stat-item">
+                <div class="stat-value" id="filesEncrypted">0</div>
+                <div class="stat-label">ملف مشفر</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="methodsUsed">0</div>
+                <div class="stat-label">طريقة مستخدمة</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="activeTime">00:00</div>
+                <div class="stat-label">وقت النشاط</div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2024 أداة تشفير بايثون المتقدمة | جميع الحقوق محفوظة</p>
+            <p>هذه الأداة للأغراض التعليمية والتأمين فقط</p>
+            <p style="margin-top: 10px; color: var(--light);">
+                <i class="fas fa-code-branch"></i> تم التطوير بواسطة @d_dwu
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const letters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+        
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#0F0';
+            ctx.font = `${fontSize}px monospace`;
+            
+            for(let i = 0; i < drops.length; i++) {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 50);
+        
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        // App Logic
+        let selectedFile = null;
+        let selectedMethod = null;
+        let encryptedCode = '';
+        let stats = {
+            filesEncrypted: 0,
+            methodsUsed: new Set(),
+            startTime: new Date()
+        };
+        
+        // File Upload
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileName = document.getElementById('fileName');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileDetails = document.getElementById('fileDetails');
+        const codeArea = document.getElementById('codeArea');
+        const selectedMethodSpan = document.getElementById('selectedMethod');
+        
+        uploadArea.addEventListener('click', () => fileInput.click());
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#00ffff';
+            uploadArea.style.boxShadow = '0 0 20px #00ffff';
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '';
+            uploadArea.style.boxShadow = '';
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '';
+            uploadArea.style.boxShadow = '';
+            
+            if(e.dataTransfer.files.length) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if(e.target.files.length) {
+                handleFile(e.target.files[0]);
+            }
+        });
+        
+        function handleFile(file) {
+            if(!file.name.endsWith('.py')) {
+                alert('❌ يرجى اختيار ملف Python فقط (.py)');
+                return;
+            }
+            
+            if(file.size > 10 * 1024 * 1024) {
+                alert('❌ حجم الملف كبير جداً! الحد الأقصى 10MB');
+                return;
+            }
+            
+            selectedFile = file;
+            fileName.textContent = `📄 ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                codeArea.value = e.target.result;
+                showFileInfo(file);
+            };
+            reader.readAsText(file);
+        }
+        
+        function showFileInfo(file) {
+            fileInfo.style.display = 'block';
+            fileDetails.innerHTML = `
+                <p><strong>اسم الملف:</strong> ${file.name}</p>
+                <p><strong>الحجم:</strong> ${(file.size / 1024).toFixed(2)} KB</p>
+                <p><strong>آخر تعديل:</strong> ${new Date(file.lastModified).toLocaleDateString('ar-EG')}</p>
+                <p><strong>السطور:</strong> ${codeArea.value.split('\n').length}</p>
+            `;
+        }
+        
+        // Encryption Methods Selection
+        document.querySelectorAll('.method-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                selectedMethod = this.dataset.method;
+                selectedMethodSpan.textContent = this.textContent;
+            });
+        });
+        
+        // Encryption Functions
+        function base64Encode(code) {
+            return `
+import base64
+exec(base64.b64decode("${btoa(code)}").decode())
+            `.trim();
+        }
+        
+        function zlibEncode(code) {
+            return `
+import zlib, base64
+code = "${btoa(code)}"
+exec(zlib.decompress(base64.b64decode(code)).decode())
+            `.trim();
+        }
+        
+        function lambdaEncode(code) {
+            return `
+(lambda __: __import__('zlib').decompress(__import__('base64').b64decode(__)))("${btoa(code)}")
+            `.trim();
+        }
+        
+        function zlibBase16Encode(code) {
+            const hex = Array.from(code).map(c => c.charCodeAt(0).toString(16).padStart(2, '0')).join('');
+            return `
+import zlib, base64
+exec(zlib.decompress(base64.b16decode("${hex}")).decode())
+            `.trim();
+        }
+        
+        function marshalZlibEncode(code) {
+            return `
+import marshal, zlib, base64
+code = "${btoa(code)}"
+exec(marshal.loads(zlib.decompress(base64.b64decode(code))))
+            `.trim();
+        }
+        
+        function base32ZlibEncode(code) {
+            return `
+import base64, zlib
+def b32encode(s):
+    return base64.b32encode(s).decode()
+def b32decode(s):
+    return base64.b32decode(s)
+exec(zlib.decompress(b32decode("${btoa(code)}")).decode())
+            `.trim();
+        }
+        
+        function tripleLayerEncode(code) {
+            return `
+import marshal, zlib, base64
+# Layer 1
+l1 = "${btoa(code)}"
+# Layer 2
+l2 = base64.b64decode(l1)
+# Layer 3
+exec(zlib.decompress(l2).decode())
+            `.trim();
+        }
+        
+        function aesSimulatedEncode(code) {
+            const key = Array.from({length: 32}, () => Math.floor(Math.random() * 256));
+            const keyStr = key.map(b => b.toString(16).padStart(2, '0')).join('');
+            
+            return `
+import base64
+key = bytes.fromhex("${keyStr}")
+encrypted = base64.b64decode("${btoa(code)}")
+decrypted = bytes([encrypted[i] ^ key[i % len(key)] for i in range(len(encrypted))])
+exec(decrypted.decode())
+            `.trim();
+        }
+        
+        function reverseEncode(code) {
+            return `
+exec(__import__('base64').b64decode("${btoa(code.split('').reverse().join(''))}").decode()[::-1])
+            `.trim();
+        }
+        
+        // Encryption Button
+        document.getElementById('encryptBtn').addEventListener('click', function() {
+            if(!selectedFile) {
+                alert('⚠️ يرجى اختيار ملف أولاً!');
+                return;
+            }
+            
+            if(!selectedMethod) {
+                alert('⚠️ يرجى اختيار طريقة التشفير!');
+                return;
+            }
+            
+            const code = codeArea.value;
+            if(!code.trim()) {
+                alert('⚠️ الملف فارغ!');
+                return;
+            }
+            
+            let result = '';
+            
+            switch(selectedMethod) {
+                case 'base64':
+                    result = base64Encode(code);
+                    break;
+                case 'zlib':
+                    result = zlibEncode(code);
+                    break;
+                case 'lambda':
+                    result = lambdaEncode(code);
+                    break;
+                case 'zlib_base16':
+                    result = zlibBase16Encode(code);
+                    break;
+                case 'marshal_zlib':
+                    result = marshalZlibEncode(code);
+                    break;
+                case 'base32_zlib':
+                    result = base32ZlibEncode(code);
+                    break;
+                case 'triple_layer':
+                    result = tripleLayerEncode(code);
+                    break;
+                case 'aes_simulated':
+                    result = aesSimulatedEncode(code);
+                    break;
+                case 'reverse_encode':
+                    result = reverseEncode(code);
+                    break;
+                default:
+                    alert('❌ طريقة غير معروفة!');
+                    return;
+            }
+            
+            encryptedCode = result;
+            codeArea.value = `# 🔐 تم التشفير باستخدام: ${selectedMethod}\n# 📅 ${new Date().toLocaleString()}\n# 👨‍💻 المطور: @d_dwu\n\n${result}`;
+            
+            // Update stats
+            stats.filesEncrypted++;
+            stats.methodsUsed.add(selectedMethod);
+            updateStats();
+            
+            // Enable download button
+            document.getElementById('downloadBtn').disabled = false;
+            
+            // Animation effect
+            const btn = this;
+            btn.innerHTML = '<i class="fas fa-check"></i> تم التشفير!';
+            btn.style.background = 'linear-gradient(45deg, #00cc00, #006600)';
+            
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-key"></i> تشفير الملف';
+                btn.style.background = '';
+            }, 2000);
+        });
+        
+        // Download Button
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            if(!encryptedCode) {
+                alert('⚠️ لا يوجد كود مشفر للتحميل!');
+                return;
+            }
+            
+            const blob = new Blob([encryptedCode], {type: 'text/x-python'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `encrypted_${selectedMethod}_${Date.now()}.py`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+        
+        // Clear Button
+        document.getElementById('clearBtn').addEventListener('click', function() {
+            if(confirm('⚠️ هل تريد مسح كل شيء؟')) {
+                selectedFile = null;
+                selectedMethod = null;
+                encryptedCode = '';
+                codeArea.value = '';
+                fileName.textContent = 'لم يتم اختيار ملف';
+                fileInfo.style.display = 'none';
+                selectedMethodSpan.textContent = 'لم يتم الاختيار';
+                document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
+                document.getElementById('downloadBtn').disabled = true;
+            }
+        });
+        
+        // Stats Update
+        function updateStats() {
+            document.getElementById('filesEncrypted').textContent = stats.filesEncrypted;
+            document.getElementById('methodsUsed').textContent = stats.methodsUsed.size;
+        }
+        
+        // Active Time Counter
+        function updateActiveTime() {
+            const now = new Date();
+            const diff = Math.floor((now - stats.startTime) / 1000);
+            const minutes = Math.floor(diff / 60);
+            const seconds = diff % 60;
+            document.getElementById('activeTime').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        setInterval(updateActiveTime, 1000);
+        
+        // Terminal-like typing effect for instructions
+        const instructions = [
+            "مرحباً في أداة تشفير بايثون المتقدمة",
+            "1. ارفع ملف Python (.py)",
+            "2. اختر طريقة التشفير",
+            "3. انقر على زر التشفير",
+            "4. حمل الملف المشفر"
+        ];
+        
+        let instructionIndex = 0;
+        let charIndex = 0;
+        const typingElement = document.querySelector('.terminal-line');
+        
+        function typeInstructions() {
+            if(instructionIndex < instructions.length) {
+                if(charIndex < instructions[instructionIndex].length) {
+                    typingElement.textContent += instructions[instructionIndex].charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeInstructions, 50);
+                } else {
+                    instructionIndex++;
+                    charIndex = 0;
+                    setTimeout(() => {
+                        typingElement.textContent = '';
+                        typeInstructions();
+                    }, 2000);
+                }
+            } else {
+                instructionIndex = 0;
+                charIndex = 0;
+                setTimeout(() => {
+                    typingElement.textContent = '';
+                    typeInstructions();
+                }, 1000);
+            }
+        }
+        
+        // Start typing effect after page load
+        setTimeout(typeInstructions, 1000);
+        
+        // Add some random hacker quotes
+        const quotes = [
+            "الدخول إلى النظام...",
+            "تم التهيئة...",
+            "جاري تحميل وحدات التشفير...",
+            "النظام جاهز للتشغيل...",
+            "حماية البيانات نشطة..."
+        ];
+        
+        setInterval(() => {
+            if(Math.random() > 0.7) {
+                console.log(`%c${quotes[Math.floor(Math.random() * quotes.length)]}`, 'color: #0f0; font-weight: bold;');
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
