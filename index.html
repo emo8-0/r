@@ -3,586 +3,321 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ CyberPython Encryptor Pro | أداة التشفير السبرانية المتقدمة</title>
+    <title> تشفير ادوات بايثون | Python Encryption Tool</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+        
         :root {
-            --neon-green: #00ff9d;
-            --cyber-blue: #00eeff;
-            --matrix-green: #0f0;
-            --dark-bg: #0a0a12;
-            --darker-bg: #050509;
-            --panel-bg: rgba(10, 15, 25, 0.9);
-            --terminal-bg: #001100;
-            --glow: 0 0 20px;
-            --cyber-gradient: linear-gradient(45deg, #00ff9d, #00eeff, #9d00ff);
+            --primary: #00ff00;
+            --secondary: #0088ff;
+            --dark: #0a0a0a;
+            --darker: #000000;
+            --light: #00ffff;
+            --glow: rgba(0, 255, 0, 0.7);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
         }
         
         body {
-            background: var(--dark-bg);
-            color: var(--neon-green);
-            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--darker);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 0, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 136, 255, 0.05) 0%, transparent 20%),
+                linear-gradient(45deg, #000000 25%, #0a0a0a 25%, #0a0a0a 50%, #000000 50%, #000000 75%, #0a0a0a 75%, #0a0a0a);
+            background-size: 100px 100px;
+            color: var(--primary);
             min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
         }
         
-        /* Cyber Grid Background */
-        .cyber-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(90deg, var(--darker-bg) 1px, transparent 1px) 0 0 / 50px 50px,
-                linear-gradient(0deg, var(--darker-bg) 1px, transparent 1px) 0 0 / 50px 50px;
-            opacity: 0.3;
-            z-index: -2;
-        }
-        
-        /* Main Container */
-        .cyber-container {
-            max-width: 1400px;
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
         
-        /* Header with Glitch Effect */
-        .cyber-header {
+        /* Header Styles */
+        .header {
             text-align: center;
-            padding: 60px 20px;
+            padding: 40px 20px;
             position: relative;
-            background: linear-gradient(to bottom, rgba(0,255,157,0.1) 0%, transparent 100%);
-            border-bottom: 2px solid var(--neon-green);
-            margin-bottom: 40px;
-            animation: scanline 10s linear infinite;
-        }
-        
-        @keyframes scanline {
-            0% { background-position: 0 0; }
-            100% { background-position: 0 1000px; }
-        }
-        
-        .glitch-container {
-            position: relative;
-            display: inline-block;
+            overflow: hidden;
         }
         
         .glitch {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 4.5rem;
+            font-size: 4rem;
             font-weight: 900;
             text-transform: uppercase;
             position: relative;
-            color: var(--neon-green);
-            letter-spacing: 3px;
-            text-shadow: 
-                0.05em 0 0 rgba(255, 0, 0, 0.7),
-                -0.025em -0.05em 0 rgba(0, 255, 255, 0.7),
-                0.025em 0.05em 0 rgba(255, 0, 255, 0.7);
-            animation: glitch 3s infinite;
+            text-shadow: 0.05em 0 0 var(--secondary), -0.025em -0.05em 0 var(--primary);
+            animation: glitch 2s infinite;
+            margin-bottom: 10px;
         }
         
         @keyframes glitch {
-            0%, 14%, 15%, 49%, 50%, 99%, 100% {
-                text-shadow: 
-                    0.05em 0 0 rgba(255, 0, 0, 0.7),
-                    -0.025em -0.05em 0 rgba(0, 255, 255, 0.7),
-                    0.025em 0.05em 0 rgba(255, 0, 255, 0.7);
-            }
-            15.1%, 49.9% {
-                text-shadow: 
-                    -0.05em -0.025em 0 rgba(255, 0, 0, 0.7),
-                    0.025em 0.025em 0 rgba(0, 255, 255, 0.7),
-                    -0.05em -0.05em 0 rgba(255, 0, 255, 0.7);
-            }
-            50.1%, 99.9% {
-                text-shadow: 
-                    0.05em 0.025em 0 rgba(255, 0, 0, 0.7),
-                    0.05em 0.05em 0 rgba(0, 255, 255, 0.7),
-                    -0.05em -0.025em 0 rgba(255, 0, 255, 0.7);
-            }
+            0% { text-shadow: 0.05em 0 0 var(--secondary), -0.025em -0.05em 0 var(--primary); }
+            15% { text-shadow: 0.05em 0 0 var(--secondary), -0.05em -0.025em 0 var(--primary); }
+            50% { text-shadow: -0.05em -0.025em 0 var(--secondary), 0.025em 0.025em 0 var(--primary); }
+            100% { text-shadow: 0.05em 0 0 var(--secondary), -0.025em -0.05em 0 var(--primary); }
         }
         
-        .cyber-subtitle {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 1.8rem;
-            color: var(--cyber-blue);
-            margin: 20px 0;
+        .developer {
+            color: var(--light);
+            font-size: 1.5rem;
+            margin-bottom: 30px;
             position: relative;
             display: inline-block;
-        }
-        
-        .cyber-subtitle::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--cyber-gradient);
+            padding: 10px 20px;
+            border: 2px solid var(--light);
+            border-radius: 5px;
             animation: pulse 2s infinite;
         }
         
-        /* Developer Badge */
-        .developer-badge {
-            background: rgba(0, 238, 255, 0.1);
-            border: 2px solid var(--cyber-blue);
-            border-radius: 10px;
-            padding: 20px 40px;
-            display: inline-flex;
-            align-items: center;
-            gap: 20px;
-            margin-top: 30px;
-            backdrop-filter: blur(10px);
-            animation: float 3s ease-in-out infinite;
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 5px var(--light); }
+            50% { box-shadow: 0 0 20px var(--light); }
         }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .tagline {
+            color: #fff;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+            text-shadow: 0 0 10px var(--glow);
         }
         
-        .badge-icon {
-            font-size: 2.5rem;
-            color: var(--neon-green);
-        }
-        
-        .badge-text {
-            text-align: right;
-        }
-        
-        .badge-text h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            color: var(--cyber-blue);
-            margin-bottom: 5px;
-        }
-        
-        .badge-text p {
-            font-family: 'Share Tech Mono', monospace;
-            color: #aaa;
-            font-size: 1rem;
-        }
-        
-        /* Main Dashboard */
-        .cyber-dashboard {
+        /* Main Content */
+        .main-content {
             display: grid;
-            grid-template-columns: 1fr 1.2fr;
+            grid-template-columns: 1fr 1fr;
             gap: 30px;
             margin-bottom: 50px;
         }
         
-        @media (max-width: 1200px) {
-            .cyber-dashboard {
+        @media (max-width: 768px) {
+            .main-content {
                 grid-template-columns: 1fr;
             }
         }
         
-        /* Cyber Panels */
-        .cyber-panel {
-            background: var(--panel-bg);
-            border: 2px solid;
-            border-image: var(--cyber-gradient) 1;
+        /* Upload Section */
+        .upload-section {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--primary);
             border-radius: 15px;
             padding: 30px;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 0 30px var(--glow);
             backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            box-shadow: 0 0 30px rgba(0, 255, 157, 0.1);
         }
         
-        .cyber-panel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--cyber-gradient);
-            animation: scan 3s linear infinite;
-        }
-        
-        @keyframes scan {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
-        .cyber-panel:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(0, 255, 157, 0.3);
-        }
-        
-        .panel-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            color: var(--cyber-blue);
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-bottom: 2px solid rgba(0, 255, 157, 0.3);
-            padding-bottom: 10px;
-        }
-        
-        /* Upload Zone */
-        .upload-zone {
-            border: 3px dashed var(--neon-green);
+        .upload-area {
+            border: 3px dashed var(--secondary);
             border-radius: 10px;
-            padding: 60px 20px;
+            padding: 40px 20px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
-            background: rgba(0, 255, 157, 0.05);
+            margin-bottom: 20px;
             position: relative;
             overflow: hidden;
         }
         
-        .upload-zone:hover {
-            background: rgba(0, 255, 157, 0.1);
-            border-color: var(--cyber-blue);
-            box-shadow: 0 0 40px rgba(0, 255, 157, 0.3);
+        .upload-area:hover {
+            border-color: var(--light);
+            box-shadow: 0 0 20px var(--secondary);
         }
         
-        .upload-icon {
-            font-size: 5rem;
-            color: var(--neon-green);
+        .upload-area i {
+            font-size: 4rem;
+            color: var(--secondary);
             margin-bottom: 20px;
-            animation: pulse 2s infinite;
         }
         
-        /* Methods Grid */
+        .file-input {
+            display: none;
+        }
+        
+        .file-name {
+            margin-top: 10px;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        
+        /* Methods Section */
+        .methods-section {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--secondary);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(0, 136, 255, 0.5);
+            backdrop-filter: blur(10px);
+        }
+        
         .methods-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
             margin-top: 20px;
         }
         
-        .method-card {
-            background: rgba(20, 25, 40, 0.8);
-            border: 2px solid rgba(0, 255, 157, 0.3);
-            border-radius: 10px;
-            padding: 20px;
+        .method-btn {
+            background: linear-gradient(45deg, var(--dark), #111);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 15px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
+            text-align: center;
+            font-weight: 600;
             position: relative;
             overflow: hidden;
         }
         
-        .method-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--cyber-gradient);
-            opacity: 0;
-            transition: opacity 0.3s;
+        .method-btn:hover {
+            background: linear-gradient(45deg, #111, var(--dark));
+            border-color: var(--light);
+            box-shadow: 0 0 15px var(--primary);
+            transform: translateY(-3px);
         }
         
-        .method-card:hover::before {
-            opacity: 0.1;
+        .method-btn.active {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: #000;
+            font-weight: 700;
         }
         
-        .method-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--cyber-blue);
-            box-shadow: 0 10px 25px rgba(0, 238, 255, 0.3);
-        }
-        
-        .method-card.active {
-            background: rgba(0, 255, 157, 0.1);
-            border-color: var(--neon-green);
-            box-shadow: 0 0 25px rgba(0, 255, 157, 0.5);
-        }
-        
-        .method-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: var(--cyber-blue);
-        }
-        
-        .method-name {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: var(--neon-green);
-        }
-        
-        .method-desc {
-            font-size: 0.9rem;
-            color: #aaa;
-            line-height: 1.5;
-        }
-        
-        /* Encryption Terminal */
-        .encryption-terminal {
+        /* Encryption Section */
+        .encryption-section {
             grid-column: 1 / -1;
-            background: var(--terminal-bg);
-            border: 3px solid var(--neon-green);
-            border-radius: 10px;
-            padding: 25px;
-            font-family: 'Share Tech Mono', monospace;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--light);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
         }
         
-        .terminal-header {
-            background: #002200;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            border-left: 5px solid var(--neon-green);
-        }
-        
-        .terminal-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--neon-green);
-            font-size: 1.2rem;
-        }
-        
-        .blinking-cursor {
-            animation: blink 1s infinite;
-            color: var(--neon-green);
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        
-        .code-editor {
+        .code-area {
             width: 100%;
-            min-height: 400px;
+            min-height: 300px;
             background: #000;
-            color: var(--matrix-green);
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 1rem;
+            border: 1px solid var(--primary);
+            border-radius: 10px;
             padding: 20px;
-            border: 1px solid rgba(0, 255, 0, 0.3);
-            border-radius: 5px;
-            resize: vertical;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
             line-height: 1.5;
+            resize: vertical;
+            margin-bottom: 20px;
         }
         
-        /* Cyber Buttons */
-        .cyber-buttons {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
         }
         
-        .cyber-btn {
-            padding: 20px;
+        .btn {
+            padding: 15px 30px;
             border: none;
             border-radius: 8px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 15px;
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        
-        .cyber-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .cyber-btn:hover::before {
-            left: 100%;
+            gap: 10px;
+            font-size: 1.1rem;
         }
         
         .btn-encrypt {
-            background: linear-gradient(45deg, #00ff9d, #009d6e);
+            background: linear-gradient(45deg, var(--primary), #00cc00);
             color: #000;
         }
         
-        .btn-encrypt:hover {
-            background: linear-gradient(45deg, #00ff9d, #00eeff);
-            box-shadow: 0 0 30px rgba(0, 255, 157, 0.7);
-        }
-        
         .btn-download {
-            background: linear-gradient(45deg, #0066ff, #0099ff);
+            background: linear-gradient(45deg, var(--secondary), #0066cc);
             color: #fff;
         }
         
-        .btn-download:hover {
-            background: linear-gradient(45deg, #0066ff, #00eeff);
-            box-shadow: 0 0 30px rgba(0, 102, 255, 0.7);
-        }
-        
-        .btn-analyze {
-            background: linear-gradient(45deg, #9d00ff, #6600cc);
+        .btn-clear {
+            background: linear-gradient(45deg, #ff3300, #cc0000);
             color: #fff;
         }
         
-        .btn-analyze:hover {
-            background: linear-gradient(45deg, #9d00ff, #ff00ff);
-            box-shadow: 0 0 30px rgba(157, 0, 255, 0.7);
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
         }
         
-        /* Stats Panel */
-        .stats-panel {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 40px 0;
-        }
-        
-        .stat-card {
-            background: rgba(10, 20, 30, 0.8);
-            border: 1px solid rgba(0, 238, 255, 0.3);
+        /* Stats Section */
+        .stats-section {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--secondary);
             border-radius: 10px;
-            padding: 25px;
-            text-align: center;
-            transition: all 0.3s;
+            padding: 20px;
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
         }
         
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--neon-green);
-            box-shadow: 0 10px 25px rgba(0, 255, 157, 0.2);
+        .stat-item {
+            text-align: center;
         }
         
         .stat-value {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            color: var(--cyber-blue);
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(0, 238, 255, 0.7);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--light);
+            text-shadow: 0 0 10px var(--light);
         }
         
         .stat-label {
-            font-size: 1.1rem;
-            color: #aaa;
-        }
-        
-        /* Advanced Features */
-        .advanced-features {
-            background: rgba(5, 10, 20, 0.9);
-            border: 2px solid rgba(157, 0, 255, 0.5);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 50px 0;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-        
-        .feature-item {
-            background: rgba(20, 10, 30, 0.8);
-            border: 1px solid rgba(157, 0, 255, 0.3);
-            border-radius: 10px;
-            padding: 25px;
-            transition: all 0.3s;
-        }
-        
-        .feature-item:hover {
-            border-color: var(--neon-green);
-            transform: translateX(10px);
+            color: #fff;
+            font-size: 1rem;
         }
         
         /* Footer */
-        .cyber-footer {
+        .footer {
             text-align: center;
-            padding: 50px 20px;
-            margin-top: 80px;
-            border-top: 2px solid rgba(0, 255, 157, 0.3);
-            position: relative;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid rgba(0, 255, 0, 0.3);
+            color: #fff;
         }
         
-        .footer-logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            color: var(--neon-green);
-            margin-bottom: 20px;
+        /* Terminal Effect */
+        .terminal-line {
             display: inline-block;
+            overflow: hidden;
+            border-right: 2px solid var(--primary);
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
         }
         
-        .footer-tagline {
-            color: #888;
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto 40px;
-            line-height: 1.8;
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
         }
         
-        /* Loading Animation */
-        .cyber-loader {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary) }
         }
         
-        .loader-content {
-            text-align: center;
-        }
-        
-        .loader-spinner {
-            width: 80px;
-            height: 80px;
-            border: 5px solid transparent;
-            border-top: 5px solid var(--neon-green);
-            border-right: 5px solid var(--cyber-blue);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 30px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .glitch { font-size: 2.5rem; }
-            .cyber-subtitle { font-size: 1.2rem; }
-            .developer-badge { padding: 15px; }
-            .cyber-btn { padding: 15px; font-size: 1rem; }
-            .stat-value { font-size: 2.5rem; }
-        }
-        
-        /* Cyber Effects */
-        .matrix-effect {
+        /* Matrix Rain Effect */
+        .matrix-bg {
             position: fixed;
             top: 0;
             left: 0;
@@ -593,361 +328,200 @@
             opacity: 0.1;
         }
         
-        .binary-rain {
-            position: absolute;
-            color: rgba(0, 255, 0, 0.3);
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 14px;
-            animation: fall linear infinite;
-        }
-        
-        @keyframes fall {
-            to { transform: translateY(100vh); }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .glitch {
+                font-size: 2.5rem;
+            }
+            
+            .developer {
+                font-size: 1.2rem;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Background Elements -->
-    <div class="cyber-grid"></div>
-    <div class="matrix-effect" id="matrixEffect"></div>
+    <!-- Matrix Rain Background -->
+    <canvas id="matrixCanvas" class="matrix-bg"></canvas>
     
-    <!-- Cyber Loader -->
-    <div class="cyber-loader" id="loader">
-        <div class="loader-content">
-            <div class="loader-spinner"></div>
-            <h2 style="color: var(--neon-green); margin-bottom: 20px;">جاري التشفير...</h2>
-            <p style="color: var(--cyber-blue);">يتم معالجة الملف بتقنيات سبرانية متقدمة</p>
-        </div>
-    </div>
-    
-    <!-- Main Container -->
-    <div class="cyber-container">
+    <div class="container">
         <!-- Header -->
-        <header class="cyber-header">
-            <div class="glitch-container">
-                <h1 class="glitch">CyberPython Encryptor Pro</h1>
+        <header class="header">
+            <h1 class="glitch">تشفير ادوات بايثون</h1>
+            <div class="developer">
+                <i class="fas fa-code"></i>  تـطوير آيـمـو  <i class="fas fa-terminal"></i>
             </div>
-            <div class="cyber-subtitle">أداة التشفير السبرانية المتقدمة - حماية شاملة لملفات بايثون</div>
-            
-            <div class="developer-badge">
-                <div class="badge-icon">
-                    <i class="fas fa-user-secret"></i>
-                </div>
-                <div class="badge-text">
-                    <h3><i class="fas fa-code"></i> تطوير إيمو</h3>
-                    <p>نظام تشفير متعدد الطبقات بتقنيات الذكاء الاصطناعي</p>
-                </div>
-            </div>
+            <p class="tagline terminal-line">
+                أداة متطورة لتشفير ملفات بايثون باستخدام خوارزميات متعددة الطبقات - أدخل عالم الحماية الرقمية
+            </p>
         </header>
         
-        <!-- Dashboard -->
-        <div class="cyber-dashboard">
-            <!-- File Upload Panel -->
-            <div class="cyber-panel">
-                <div class="panel-title">
-                    <i class="fas fa-file-upload"></i>
-                    <span>رفع الملف السبراني</span>
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Upload Section -->
+            <div class="upload-section">
+                <h2><i class="fas fa-upload"></i> رفع الملف</h2>
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-file-code"></i>
+                    <p>اسحب وأفلت ملف Python هنا أو انقر للاختيار</p>
+                    <p>الحد الأقصى: 10MB | صيغة: .py فقط</p>
+                    <input type="file" id="fileInput" class="file-input" accept=".py">
+                    <div class="file-name" id="fileName">لم يتم اختيار ملف</div>
                 </div>
                 
-                <div class="upload-zone" id="uploadZone">
-                    <div class="upload-icon">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                    </div>
-                    <h3 style="color: var(--cyber-blue); margin-bottom: 15px;">اسحب وأفلت ملف Python هنا</h3>
-                    <p style="color: #aaa; margin-bottom: 25px;">أو انقر للاختيار يدوياً</p>
-                    <div style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; border: 1px solid rgba(0,255,157,0.2);">
-                        <p style="color: var(--neon-green); margin-bottom: 5px;"><i class="fas fa-info-circle"></i> المواصفات المدعومة:</p>
-                        <p style="color: #888; font-size: 0.9rem;">الحجم الأقصى: 50MB | صيغة: .py فقط | تشفير متعدد الطبقات</p>
-                    </div>
-                    <input type="file" id="fileInput" accept=".py" style="display: none;">
-                </div>
-                
-                <div id="fileInfo" style="display: none; margin-top: 25px; padding: 20px; background: rgba(0,30,60,0.5); border-radius: 10px; border: 1px solid rgba(0,238,255,0.3);">
-                    <h4 style="color: var(--cyber-blue); margin-bottom: 15px;"><i class="fas fa-file-code"></i> معلومات الملف</h4>
+                <div class="file-info" id="fileInfo" style="display: none;">
+                    <h3><i class="fas fa-info-circle"></i> معلومات الملف</h3>
                     <div id="fileDetails"></div>
                 </div>
             </div>
             
-            <!-- Encryption Methods Panel -->
-            <div class="cyber-panel">
-                <div class="panel-title">
-                    <i class="fas fa-shield-alt"></i>
-                    <span>أنظمة التشفير المتقدمة</span>
+            <!-- Methods Section -->
+            <div class="methods-section">
+                <h2><i class="fas fa-shield-alt"></i> طرق التشفير</h2>
+                <p>اختر طريقة التشفير المناسبة:</p>
+                
+                <div class="methods-grid">
+                    <div class="method-btn" data-method="base64">✦ Base64</div>
+                    <div class="method-btn" data-method="zlib">✦ Zlib</div>
+                    <div class="method-btn" data-method="lambda">💫 Lambda</div>
+                    <div class="method-btn" data-method="zlib_base16">✦ Zlib + Base16</div>
+                    <div class="method-btn" data-method="marshal_zlib">✦ Marshal + Zlib</div>
+                    <div class="method-btn" data-method="base32_zlib">✦ Base32 + Zlib</div>
+                    <div class="method-btn" data-method="triple_layer">🎯 Triple Layer</div>
+                    <div class="method-btn" data-method="aes_simulated">✦ AES Simulated</div>
+                    <div class="method-btn" data-method="reverse_encode">✦ Reverse + Encode</div>
                 </div>
                 
-                <div class="methods-grid" id="methodsGrid">
-                    <!-- Methods will be dynamically added -->
+                <div style="margin-top: 20px; padding: 15px; background: rgba(0,255,0,0.1); border-radius: 8px;">
+                    <p><i class="fas fa-lightbulb"></i> <strong>الطريقة المختارة:</strong> <span id="selectedMethod">لم يتم الاختيار</span></p>
                 </div>
+            </div>
+            
+            <!-- Encryption Section -->
+            <div class="encryption-section">
+                <h2><i class="fas fa-lock"></i> منطقة التشفير</h2>
                 
-                <div style="margin-top: 25px; padding: 20px; background: rgba(0,255,157,0.05); border-radius: 10px; border: 1px solid rgba(0,255,157,0.2);">
-                    <p style="color: var(--neon-green);"><i class="fas fa-lightbulb"></i> <strong>النظام المختار:</strong> <span id="selectedMethod">لم يتم اختيار نظام تشفير</span></p>
-                    <p style="color: #aaa; margin-top: 10px; font-size: 0.9rem;" id="methodDescription">اختر نظام التشفير المناسب من القائمة أعلاه</p>
+                <textarea class="code-area" id="codeArea" placeholder="سيعرض هنا محتوى الملف أو الكود المشفر..."></textarea>
+                
+                <div class="btn-group">
+                    <button class="btn btn-encrypt" id="encryptBtn">
+                        <i class="fas fa-key"></i> تشفير الملف
+                    </button>
+                    <button class="btn btn-download" id="downloadBtn" disabled>
+                        <i class="fas fa-download"></i> تحميل المشفر
+                    </button>
+                    <button class="btn btn-clear" id="clearBtn">
+                        <i class="fas fa-trash"></i> مسح الكل
+                    </button>
                 </div>
             </div>
         </div>
         
-        <!-- Encryption Terminal -->
-        <div class="cyber-panel encryption-terminal">
-            <div class="terminal-header">
-                <div class="terminal-title">
-                    <i class="fas fa-terminal"></i>
-                    <span>وحدة التحكم السبرانية</span>
-                    <span class="blinking-cursor">_</span>
-                </div>
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stat-item">
+                <div class="stat-value" id="filesEncrypted">0</div>
+                <div class="stat-label">ملف مشفر</div>
             </div>
-            
-            <textarea class="code-editor" id="codeEditor" placeholder="سوف يظهر هنا الكود الأصلي أو المشفر..."></textarea>
-            
-            <div class="cyber-buttons">
-                <button class="cyber-btn btn-encrypt" id="encryptBtn">
-                    <i class="fas fa-lock"></i>
-                    <span>تشغيل النظام السبراني</span>
-                </button>
-                <button class="cyber-btn btn-download" id="downloadBtn" disabled>
-                    <i class="fas fa-download"></i>
-                    <span>تحميل الملف المشفر</span>
-                </button>
-                <button class="cyber-btn btn-analyze" id="analyzeBtn">
-                    <i class="fas fa-chart-bar"></i>
-                    <span>تحليل الأمني</span>
-                </button>
+            <div class="stat-item">
+                <div class="stat-value" id="methodsUsed">0</div>
+                <div class="stat-label">طريقة مستخدمة</div>
             </div>
-        </div>
-        
-        <!-- Advanced Features -->
-        <div class="advanced-features">
-            <div class="panel-title">
-                <i class="fas fa-cogs"></i>
-                <span>المميزات المتقدمة</span>
-            </div>
-            
-            <div class="features-grid">
-                <div class="feature-item">
-                    <div class="method-icon"><i class="fas fa-layer-group"></i></div>
-                    <h3 class="method-name">تشفير متعدد الطبقات</h3>
-                    <p class="method-desc">دمج عدة خوارزميات تشفير معاً لحماية قصوى</p>
-                </div>
-                
-                <div class="feature-item">
-                    <div class="method-icon"><i class="fas fa-brain"></i></div>
-                    <h3 class="method-name">ذكاء اصطناعي</h3>
-                    <p class="method-desc">تحليل ذكي للكود وتشفير ديناميكي بناءً على المحتوى</p>
-                </div>
-                
-                <div class="feature-item">
-                    <div class="method-icon"><i class="fas fa-bolt"></i></div>
-                    <h3 class="method-name">معالجة سريعة</h3>
-                    <p class="method-desc">تشفير فائق السرعة باستخدام تقنيات WebAssembly</p>
-                </div>
-                
-                <div class="feature-item">
-                    <div class="method-icon"><i class="fas fa-user-shield"></i></div>
-                    <h3 class="method-name">حماية متقدمة</h3>
-                    <p class="method-desc">إضافة طبقات حماية ضد الهندسة العكسية</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Statistics Panel -->
-        <div class="stats-panel">
-            <div class="stat-card">
-                <div class="stat-value" id="statsEncrypted">0</div>
-                <div class="stat-label">ملف تم تشفيره</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-value" id="statsLayers">14</div>
-                <div class="stat-label">طبقة تشفير مختلفة</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-value" id="statsSpeed">0.00</div>
-                <div class="stat-label">ثانية/ملف (متوسط)</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-value" id="statsSecurity">100%</div>
-                <div class="stat-label">مستوى الحماية</div>
+            <div class="stat-item">
+                <div class="stat-value" id="activeTime">00:00</div>
+                <div class="stat-label">وقت النشاط</div>
             </div>
         </div>
         
         <!-- Footer -->
-        <footer class="cyber-footer">
-            <div class="footer-logo">CYBERPYTHON PRO</div>
-            <p class="footer-tagline">
-                نظام تشفير سبراني متقدم يعمل بتقنيات الذكاء الاصطناعي والتحليل الأمني المتقدم.<br>
-                حماية شاملة لملفات بايثون باستخدام خوارزميات تشفير متعددة الطبقات.
+        <footer class="footer">
+            <p>موقع مصمم لتشفير ادوات بايثون </p>
+            <p>اي مشكله تعال ؏ البوت تلجرام @initrbot</p>
+            <p style="margin-top: 10px; color: var(--light);">
+                <i class="fas fa-code-branch"></i> تم التطوير بواسطة emo_80
             </p>
-            
-            <div style="margin-top: 40px; color: #666; font-size: 0.9rem;">
-                <p>© 2024 CyberPython Encryptor Pro | جميع الحقوق محفوظة</p>
-                <p style="margin-top: 10px;">هذه الأداة للأغراض الأمنية والتعليمية فقط</p>
-            </div>
         </footer>
     </div>
 
     <script>
-        // Matrix Effect
-        const matrixEffect = document.getElementById('matrixEffect');
-        const chars = '01010101010101010101アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
         
-        function createMatrix() {
-            const fontSize = 14;
-            const columns = Math.floor(window.innerWidth / fontSize);
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const letters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+        
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            for(let i = 0; i < columns; i++) {
-                const char = document.createElement('div');
-                char.className = 'binary-rain';
-                char.style.left = (i * fontSize) + 'px';
-                char.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                char.style.animationDelay = Math.random() * 5 + 's';
-                char.textContent = chars[Math.floor(Math.random() * chars.length)];
-                matrixEffect.appendChild(char);
+            ctx.fillStyle = '#0F0';
+            ctx.font = `${fontSize}px monospace`;
+            
+            for(let i = 0; i < drops.length; i++) {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
                 
-                setTimeout(() => {
-                    char.remove();
-                }, 7000);
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
             }
         }
         
-        setInterval(createMatrix, 100);
+        setInterval(drawMatrix, 50);
         
-        // App State
-        let state = {
-            selectedFile: null,
-            selectedMethod: null,
-            encryptedCode: '',
-            originalCode: '',
-            stats: {
-                encrypted: 0,
-                methods: new Set(),
-                startTime: Date.now(),
-                speed: [],
-                securityLevel: 100
-            },
-            encryptionMethods: [
-                {
-                    id: 'quantum_base64',
-                    name: '🔰 Quantum Base64',
-                    desc: 'تشفير كمي مع Base64 متقدم',
-                    icon: 'fas fa-atom'
-                },
-                {
-                    id: 'neural_marshal',
-                    name: '🧠 Neural Marshal',
-                    desc: 'تشفير ذكي باستخدام الشبكات العصبية',
-                    icon: 'fas fa-brain'
-                },
-                {
-                    id: 'cyber_zlib',
-                    name: '⚡ Cyber Zlib Pro',
-                    desc: 'ضغط وتشفير سبراني متقدم',
-                    icon: 'fas fa-compress-arrows-alt'
-                },
-                {
-                    id: 'quantum_zlib_base128',
-                    name: '🌀 Quantum Zlib Base128',
-                    desc: 'تشفير كمي 128 بت مع ضغط',
-                    icon: 'fas fa-bolt'
-                },
-                {
-                    id: 'ai_marshal_zlib',
-                    name: '🤖 AI Marshal Zlib',
-                    desc: 'ذكاء اصطناعي مع تشفير متعدد',
-                    icon: 'fas fa-robot'
-                },
-                {
-                    id: 'cyber_base85_zlib',
-                    name: '🛡️ Cyber Base85 Zlib',
-                    desc: 'تشفير Base85 متقدم مع حماية',
-                    icon: 'fas fa-shield-alt'
-                },
-                {
-                    id: 'quantum_triple_layer',
-                    name: '⚛️ Quantum Triple Layer',
-                    desc: 'ثلاث طبقات تشفير كمي',
-                    icon: 'fas fa-layer-group'
-                },
-                {
-                    id: 'neural_aes_256',
-                    name: '🔐 Neural AES-256',
-                    desc: 'محاكاة AES-256 بتعلم آلي',
-                    icon: 'fas fa-key'
-                },
-                {
-                    id: 'cyber_quantum_mix',
-                    name: '🌪️ Cyber Quantum Mix',
-                    desc: 'خليط كمي سبراني متقدم',
-                    icon: 'fas fa-star-of-life'
-                },
-                {
-                    id: 'ai_reverse_quantum',
-                    name: '🌀 AI Reverse Quantum',
-                    desc: 'عكس كمي ذكي مع تشفير',
-                    icon: 'fas fa-sync-alt'
-                },
-                {
-                    id: 'cyber_penta_layer',
-                    name: '🔥 Cyber Penta Layer',
-                    desc: 'خمس طبقات تشفير سبراني',
-                    icon: 'fas fa-fire'
-                },
-                {
-                    id: 'quantum_neural_net',
-                    name: '🧬 Quantum Neural Net',
-                    desc: 'شبكة عصبية كمية للتشفير',
-                    icon: 'fas fa-project-diagram'
-                }
-            ]
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        // App Logic
+        let selectedFile = null;
+        let selectedMethod = null;
+        let encryptedCode = '';
+        let stats = {
+            filesEncrypted: 0,
+            methodsUsed: new Set(),
+            startTime: new Date()
         };
         
-        // Initialize Methods Grid
-        function initMethodsGrid() {
-            const grid = document.getElementById('methodsGrid');
-            grid.innerHTML = '';
-            
-            state.encryptionMethods.forEach(method => {
-                const card = document.createElement('div');
-                card.className = 'method-card';
-                card.dataset.method = method.id;
-                card.innerHTML = `
-                    <div class="method-icon"><i class="${method.icon}"></i></div>
-                    <h3 class="method-name">${method.name}</h3>
-                    <p class="method-desc">${method.desc}</p>
-                `;
-                
-                card.addEventListener('click', () => selectMethod(method));
-                grid.appendChild(card);
-            });
-        }
-        
-        // Initialize
-        initMethodsGrid();
-        
         // File Upload
-        const uploadZone = document.getElementById('uploadZone');
+        const uploadArea = document.getElementById('uploadArea');
         const fileInput = document.getElementById('fileInput');
+        const fileName = document.getElementById('fileName');
         const fileInfo = document.getElementById('fileInfo');
         const fileDetails = document.getElementById('fileDetails');
-        const codeEditor = document.getElementById('codeEditor');
+        const codeArea = document.getElementById('codeArea');
+        const selectedMethodSpan = document.getElementById('selectedMethod');
         
-        uploadZone.addEventListener('click', () => fileInput.click());
+        uploadArea.addEventListener('click', () => fileInput.click());
         
-        uploadZone.addEventListener('dragover', (e) => {
+        uploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
-            uploadZone.style.borderColor = 'var(--cyber-blue)';
-            uploadZone.style.boxShadow = '0 0 50px rgba(0, 238, 255, 0.5)';
+            uploadArea.style.borderColor = '#00ffff';
+            uploadArea.style.boxShadow = '0 0 20px #00ffff';
         });
         
-        uploadZone.addEventListener('dragleave', () => {
-            uploadZone.style.borderColor = '';
-            uploadZone.style.boxShadow = '';
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '';
+            uploadArea.style.boxShadow = '';
         });
         
-        uploadZone.addEventListener('drop', (e) => {
+        uploadArea.addEventListener('drop', (e) => {
             e.preventDefault();
-            uploadZone.style.borderColor = '';
-            uploadZone.style.boxShadow = '';
+            uploadArea.style.borderColor = '';
+            uploadArea.style.boxShadow = '';
             
             if(e.dataTransfer.files.length) {
                 handleFile(e.dataTransfer.files[0]);
@@ -962,459 +536,306 @@
         
         function handleFile(file) {
             if(!file.name.endsWith('.py')) {
-                showAlert('⚠️ يجب أن يكون الملف بصيغة Python (.py) فقط', 'error');
+                alert('❌ يرجى اختيار ملف Python فقط (.py)');
                 return;
             }
             
-            if(file.size > 50 * 1024 * 1024) {
-                showAlert('⚠️ حجم الملف كبير جداً! الحد الأقصى 50MB', 'error');
+            if(file.size > 10 * 1024 * 1024) {
+                alert('❌ حجم الملف كبير جداً! الحد الأقصى 10MB');
                 return;
             }
             
-            state.selectedFile = file;
+            selectedFile = file;
+            fileName.textContent = `📄 ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
             
             const reader = new FileReader();
             reader.onload = function(e) {
-                state.originalCode = e.target.result;
-                codeEditor.value = state.originalCode;
+                codeArea.value = e.target.result;
                 showFileInfo(file);
-                showAlert('✅ تم تحميل الملف بنجاح', 'success');
             };
             reader.readAsText(file);
         }
         
         function showFileInfo(file) {
             fileInfo.style.display = 'block';
-            const lines = codeEditor.value.split('\n').length;
-            const sizeKB = (file.size / 1024).toFixed(2);
-            
             fileDetails.innerHTML = `
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div>
-                        <p><strong><i class="fas fa-file-signature"></i> الاسم:</strong> ${file.name}</p>
-                        <p><strong><i class="fas fa-weight-hanging"></i> الحجم:</strong> ${sizeKB} KB</p>
-                    </div>
-                    <div>
-                        <p><strong><i class="fas fa-code"></i> السطور:</strong> ${lines} سطر</p>
-                        <p><strong><i class="fas fa-calendar-alt"></i> التعديل:</strong> ${new Date(file.lastModified).toLocaleDateString('ar-EG')}</p>
-                    </div>
-                </div>
+                <p><strong>اسم الملف:</strong> ${file.name}</p>
+                <p><strong>الحجم:</strong> ${(file.size / 1024).toFixed(2)} KB</p>
+                <p><strong>آخر تعديل:</strong> ${new Date(file.lastModified).toLocaleDateString('ar-EG')}</p>
+                <p><strong>السطور:</strong> ${codeArea.value.split('\n').length}</p>
             `;
         }
         
-        // Method Selection
-        function selectMethod(method) {
-            state.selectedMethod = method;
-            
-            // Update UI
-            document.querySelectorAll('.method-card').forEach(card => {
-                card.classList.remove('active');
-                if(card.dataset.method === method.id) {
-                    card.classList.add('active');
-                }
+        // Encryption Methods Selection
+        document.querySelectorAll('.method-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                selectedMethod = this.dataset.method;
+                selectedMethodSpan.textContent = this.textContent;
             });
-            
-            document.getElementById('selectedMethod').textContent = method.name;
-            document.getElementById('methodDescription').textContent = method.desc;
-            
-            showAlert(`✅ تم اختيار نظام التشفير: ${method.name}`, 'success');
-        }
+        });
         
         // Encryption Functions
-        function quantumBase64Encode(code) {
-            // Advanced Base64 with random padding
-            const randomPad = Math.random().toString(36).substring(7);
-            const encoded = btoa(randomPad + code + randomPad);
-            const chunks = encoded.match(/.{1,64}/g) || [];
+        function base64Encode(code) {
+            return `
+import base64
+exec(base64.b64decode("${btoa(code)}").decode())
+            `.trim();
+        }
+        
+        function zlibEncode(code) {
+            return `
+import zlib, base64
+code = "${btoa(code)}"
+exec(zlib.decompress(base64.b64decode(code)).decode())
+            `.trim();
+        }
+        
+        function lambdaEncode(code) {
+            return `
+(lambda __: __import__('zlib').decompress(__import__('base64').b64decode(__)))("${btoa(code)}")
+            `.trim();
+        }
+        
+        function zlibBase16Encode(code) {
+            const hex = Array.from(code).map(c => c.charCodeAt(0).toString(16).padStart(2, '0')).join('');
+            return `
+import zlib, base64
+exec(zlib.decompress(base64.b16decode("${hex}")).decode())
+            `.trim();
+        }
+        
+        function marshalZlibEncode(code) {
+            return `
+import marshal, zlib, base64
+code = "${btoa(code)}"
+exec(marshal.loads(zlib.decompress(base64.b64decode(code))))
+            `.trim();
+        }
+        
+        function base32ZlibEncode(code) {
+            return `
+import base64, zlib
+def b32encode(s):
+    return base64.b32encode(s).decode()
+def b32decode(s):
+    return base64.b32decode(s)
+exec(zlib.decompress(b32decode("${btoa(code)}")).decode())
+            `.trim();
+        }
+        
+        function tripleLayerEncode(code) {
+            return `
+import marshal, zlib, base64
+# Layer 1
+l1 = "${btoa(code)}"
+# Layer 2
+l2 = base64.b64decode(l1)
+# Layer 3
+exec(zlib.decompress(l2).decode())
+            `.trim();
+        }
+        
+        function aesSimulatedEncode(code) {
+            const key = Array.from({length: 32}, () => Math.floor(Math.random() * 256));
+            const keyStr = key.map(b => b.toString(16).padStart(2, '0')).join('');
             
             return `
-# 🔐 Quantum Base64 Encryption
-# 🕒 ${new Date().toLocaleString()}
-# ⚡ CyberPython Encryptor Pro
-
-import base64, hashlib, random
-
-def quantum_decode(encoded):
-    # Remove quantum padding
-    decoded = base64.b64decode(encoded).decode()
-    pad_len = 10
-    return decoded[pad_len:-pad_len]
-
-encrypted_data = """\n${chunks.join('\n')}\n"""
-
-if __name__ == "__main__":
-    exec(quantum_decode(encrypted_data))
+import base64
+key = bytes.fromhex("${keyStr}")
+encrypted = base64.b64decode("${btoa(code)}")
+decrypted = bytes([encrypted[i] ^ key[i % len(key)] for i in range(len(encrypted))])
+exec(decrypted.decode())
             `.trim();
         }
         
-        function neuralMarshalEncode(code) {
-            // Neural network simulation with marshal
-            const neuralKey = Array.from({length: 32}, () => 
-                Math.floor(Math.random() * 256).toString(16).padStart(2, '0')).join('');
-            
+        function reverseEncode(code) {
             return `
-# 🧠 Neural Marshal Encryption
-# 🔑 Neural Key: ${neuralKey}
-# ⚡ CyberPython Encryptor Pro
-
-import marshal, base64, hashlib, struct
-
-class NeuralDecryptor:
-    def __init__(self):
-        self.neural_key = bytes.fromhex("${neuralKey}")
-    
-    def activate_network(self, data):
-        # Neural network activation simulation
-        result = bytearray()
-        for i, byte in enumerate(data):
-            key_byte = self.neural_key[i % len(self.neural_key)]
-            result.append(byte ^ key_byte)
-        return bytes(result)
-    
-    def decrypt(self, encrypted_code):
-        layer1 = base64.b85decode(encrypted_code)
-        layer2 = self.activate_network(layer1)
-        return marshal.loads(layer2)
-
-encrypted = """${btoa(code)}"""
-
-decryptor = NeuralDecryptor()
-exec(decryptor.decrypt(encrypted))
+exec(__import__('base64').b64decode("${btoa(code.split('').reverse().join(''))}").decode()[::-1])
             `.trim();
         }
         
-        function cyberZlibEncode(code) {
-            // Advanced zlib compression with cyber protection
-            return `
-# ⚡ Cyber Zlib Pro Encryption
-# 🔒 Multi-layer Protection
-# ⚡ CyberPython Encryptor Pro
-
-import zlib, base64, time, hashlib
-
-class CyberProtector:
-    def __init__(self):
-        self.cyber_hash = hashlib.sha256(b"cyber_python_pro").hexdigest()
-    
-    def cyber_decompress(self, data):
-        # Add cyber protection layer
-        verified_hash = data[:64]
-        if verified_hash != self.cyber_hash:
-            raise SecurityError("Cyber protection breached!")
-        
-        compressed = data[64:]
-        decompressed = zlib.decompress(base64.b85decode(compressed))
-        return decompressed.decode()
-
-# Compressed with cyber protection
-encrypted = "${self.cyber_hash}" + """${btoa(zlib.deflateSync ? 
-                zlib.deflateSync(code) : 
-                pako.deflate(code))}"""
-
-protector = CyberProtector()
-exec(protector.cyber_decompress(encrypted))
-            `.trim();
-        }
-        
-        function quantumTripleLayerEncode(code) {
-            // Triple layer quantum encryption
-            return `
-# ⚛️ Quantum Triple Layer Encryption
-# 🛡️ Maximum Security
-# ⚡ CyberPython Encryptor Pro
-
-import base64, zlib, marshal, hashlib, random
-
-class QuantumSafe:
-    def __init__(self):
-        self.quantum_key = hashlib.sha512(str(random.getrandbits(256)).encode()).digest()
-    
-    def quantum_decrypt(self, data):
-        # Layer 3: Base85
-        layer3 = base64.b85decode(data)
-        # Layer 2: Zlib
-        layer2 = zlib.decompress(layer3)
-        # Layer 1: XOR with quantum key
-        layer1 = bytes([layer2[i] ^ self.quantum_key[i % len(self.quantum_key)] 
-                       for i in range(len(layer2))])
-        return marshal.loads(layer1)
-
-quantum_data = """${btoa(code)}"""
-
-quantum_safe = QuantumSafe()
-exec(quantum_safe.quantum_decrypt(quantum_data))
-            `.trim();
-        }
-        
-        // More encryption functions...
-        
-        // Encrypt Button
-        document.getElementById('encryptBtn').addEventListener('click', async function() {
-            if(!state.selectedFile) {
-                showAlert('⚠️ يرجى رفع ملف أولاً', 'warning');
+        // Encryption Button
+        document.getElementById('encryptBtn').addEventListener('click', function() {
+            if(!selectedFile) {
+                alert('⚠️ يرجى اختيار ملف أولاً!');
                 return;
             }
             
-            if(!state.selectedMethod) {
-                showAlert('⚠️ اختر نظام تشفير من القائمة', 'warning');
+            if(!selectedMethod) {
+                alert('⚠️ يرجى اختيار طريقة التشفير!');
                 return;
             }
             
-            const code = codeEditor.value;
+            const code = codeArea.value;
             if(!code.trim()) {
-                showAlert('⚠️ الملف فارغ', 'warning');
+                alert('⚠️ الملف فارغ!');
                 return;
             }
-            
-            // Show loader
-            const loader = document.getElementById('loader');
-            loader.style.display = 'flex';
-            
-            // Simulate processing delay
-            await new Promise(resolve => setTimeout(resolve, 1500));
             
             let result = '';
-            const startTime = performance.now();
             
-            switch(state.selectedMethod.id) {
-                case 'quantum_base64':
-                    result = quantumBase64Encode(code);
+            switch(selectedMethod) {
+                case 'base64':
+                    result = base64Encode(code);
                     break;
-                case 'neural_marshal':
-                    result = neuralMarshalEncode(code);
+                case 'zlib':
+                    result = zlibEncode(code);
                     break;
-                case 'cyber_zlib':
-                    result = cyberZlibEncode(code);
+                case 'lambda':
+                    result = lambdaEncode(code);
                     break;
-                case 'quantum_triple_layer':
-                    result = quantumTripleLayerEncode(code);
+                case 'zlib_base16':
+                    result = zlibBase16Encode(code);
                     break;
-                // Add more cases for other methods
+                case 'marshal_zlib':
+                    result = marshalZlibEncode(code);
+                    break;
+                case 'base32_zlib':
+                    result = base32ZlibEncode(code);
+                    break;
+                case 'triple_layer':
+                    result = tripleLayerEncode(code);
+                    break;
+                case 'aes_simulated':
+                    result = aesSimulatedEncode(code);
+                    break;
+                case 'reverse_encode':
+                    result = reverseEncode(code);
+                    break;
                 default:
-                    result = quantumBase64Encode(code); // Default
+                    alert('❌ طريقة غير معروفة!');
+                    return;
             }
             
-            const endTime = performance.now();
-            const processTime = ((endTime - startTime) / 1000).toFixed(2);
-            
-            state.encryptedCode = result;
-            codeEditor.value = result;
+            encryptedCode = result;
+            codeArea.value = `# 🔐 تم التشفير باستخدام: ${selectedMethod}\n# 📅 ${new Date().toLocaleString()}\n# 👨‍💻 المطور: @d_dwu\n\n${result}`;
             
             // Update stats
-            state.stats.encrypted++;
-            state.stats.methods.add(state.selectedMethod.id);
-            state.stats.speed.push(parseFloat(processTime));
-            
-            const avgSpeed = (state.stats.speed.reduce((a, b) => a + b, 0) / state.stats.speed.length).toFixed(2);
-            
-            document.getElementById('statsEncrypted').textContent = state.stats.encrypted;
-            document.getElementById('statsSpeed').textContent = avgSpeed;
+            stats.filesEncrypted++;
+            stats.methodsUsed.add(selectedMethod);
+            updateStats();
             
             // Enable download button
             document.getElementById('downloadBtn').disabled = false;
             
-            // Hide loader
-            loader.style.display = 'none';
-            
-            showAlert(`✅ تم التشفير بنجاح! الوقت: ${processTime} ثانية`, 'success');
-            
             // Animation effect
             const btn = this;
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-check"></i><span>تم التشفير!</span>';
-            btn.style.background = 'linear-gradient(45deg, #00ff00, #009900)';
+            btn.innerHTML = '<i class="fas fa-check"></i> تم التشفير!';
+            btn.style.background = 'linear-gradient(45deg, #00cc00, #006600)';
             
             setTimeout(() => {
-                btn.innerHTML = originalHTML;
+                btn.innerHTML = '<i class="fas fa-key"></i> تشفير الملف';
                 btn.style.background = '';
             }, 2000);
         });
         
         // Download Button
         document.getElementById('downloadBtn').addEventListener('click', function() {
-            if(!state.encryptedCode) {
-                showAlert('⚠️ لا يوجد كود مشفر للتحميل', 'warning');
+            if(!encryptedCode) {
+                alert('⚠️ لا يوجد كود مشفر للتحميل!');
                 return;
             }
             
-            const methodName = state.selectedMethod ? state.selectedMethod.name.replace(/[^\w]/g, '_') : 'encrypted';
-            const timestamp = Date.now();
-            const filename = `cyber_encrypted_${methodName}_${timestamp}.py`;
-            
-            const blob = new Blob([state.encryptedCode], {type: 'text/x-python;charset=utf-8'});
+            const blob = new Blob([encryptedCode], {type: 'text/x-python'});
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = filename;
+            a.download = `encrypted_${selectedMethod}_${Date.now()}.py`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            
-            showAlert('✅ تم تحميل الملف المشفر', 'success');
         });
         
-        // Analyze Button
-        document.getElementById('analyzeBtn').addEventListener('click', function() {
-            const code = codeEditor.value;
-            if(!code.trim()) {
-                showAlert('⚠️ لا يوجد كود للتحليل', 'warning');
-                return;
+        // Clear Button
+        document.getElementById('clearBtn').addEventListener('click', function() {
+            if(confirm('⚠️ هل تريد مسح كل شيء؟')) {
+                selectedFile = null;
+                selectedMethod = null;
+                encryptedCode = '';
+                codeArea.value = '';
+                fileName.textContent = 'لم يتم اختيار ملف';
+                fileInfo.style.display = 'none';
+                selectedMethodSpan.textContent = 'لم يتم الاختيار';
+                document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
+                document.getElementById('downloadBtn').disabled = true;
             }
-            
-            const lines = code.split('\n').length;
-            const chars = code.length;
-            const words = code.split(/\s+/).length;
-            const comments = (code.match(/#.*$/gm) || []).length;
-            
-            const analysis = `
-🔍 تحليل أمني متقدم:
-━━━━━━━━━━━━━━━━━━━━
-📊 الإحصائيات:
-• السطور: ${lines} سطر
-• الأحرف: ${chars} حرف
-• الكلمات: ${words} كلمة
-• التعليقات: ${comment} تعليق
-
-🛡️ تقييم الأمنية:
-${state.selectedMethod ? `• نظام التشفير: ${state.selectedMethod.name}` : '• نظام التشفير: غير محدد'}
-• الطبقات: ${state.selectedMethod?.id.includes('layer') ? 'متعددة' : 'واحدة'}
-• مستوى الحماية: ${calculateSecurityLevel()}%
-
-⚡ التوصيات:
-${getSecurityRecommendations()}
-            `;
-            
-            showAlert(analysis, 'info');
         });
         
-        function calculateSecurityLevel() {
-            if(!state.selectedMethod) return 70;
-            const levels = {
-                'quantum_base64': 85,
-                'neural_marshal': 90,
-                'cyber_zlib': 92,
-                'quantum_triple_layer': 98,
-                'ai_marshal_zlib': 95,
-                'cyber_penta_layer': 99
-            };
-            return levels[state.selectedMethod.id] || 80;
-        }
-        
-        function getSecurityRecommendations() {
-            if(!state.selectedMethod) return '1. اختر نظام تشفير متقدم\n2. أضف طبقات حماية إضافية';
-            
-            const recommendations = {
-                'quantum_base64': '1. أضف تشفير XOR إضافي\n2. استخدم كلمات مرور معقدة',
-                'quantum_triple_layer': '1. النظام ممتاز\n2. حافظ على تحديث المفاتيح',
-                'cyber_penta_layer': '1. أعلى مستوى أمان\n2. تأكد من النسخ الاحتياطي'
-            };
-            
-            return recommendations[state.selectedMethod.id] || '1. استمر في استخدام النظام الحالي\n2. راجع السجلات الأمنية';
-        }
-        
-        // Utility Functions
-        function showAlert(message, type = 'info') {
-            const colors = {
-                success: 'var(--neon-green)',
-                error: '#ff4444',
-                warning: '#ffaa00',
-                info: 'var(--cyber-blue)'
-            };
-            
-            const alertDiv = document.createElement('div');
-            alertDiv.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: rgba(10, 20, 30, 0.95);
-                color: ${colors[type] || colors.info};
-                padding: 20px 30px;
-                border-radius: 10px;
-                border: 2px solid ${colors[type] || colors.info};
-                box-shadow: 0 0 30px rgba(0, 255, 157, 0.3);
-                z-index: 10000;
-                max-width: 500px;
-                font-family: 'Share Tech Mono', monospace;
-                white-space: pre-line;
-                backdrop-filter: blur(10px);
-                animation: slideIn 0.3s ease;
-            `;
-            
-            alertDiv.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 15px;">
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : 
-                                  type === 'error' ? 'exclamation-circle' : 
-                                  type === 'warning' ? 'exclamation-triangle' : 'info-circle'}" 
-                       style="font-size: 1.5rem;"></i>
-                    <div>${message}</div>
-                </div>
-            `;
-            
-            document.body.appendChild(alertDiv);
-            
-            setTimeout(() => {
-                alertDiv.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => alertDiv.remove(), 300);
-            }, 5000);
-        }
-        
-        // Add CSS for animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            @keyframes slideOut {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // Initialize stats
+        // Stats Update
         function updateStats() {
-            const now = Date.now();
-            const uptime = Math.floor((now - state.stats.startTime) / 1000);
-            const hours = Math.floor(uptime / 3600);
-            const minutes = Math.floor((uptime % 3600) / 60);
-            const seconds = uptime % 60;
-            
-            document.getElementById('statsSecurity').textContent = calculateSecurityLevel() + '%';
-            
-            // Update every second
-            setTimeout(updateStats, 1000);
+            document.getElementById('filesEncrypted').textContent = stats.filesEncrypted;
+            document.getElementById('methodsUsed').textContent = stats.methodsUsed.size;
         }
         
-        updateStats();
+        // Active Time Counter
+        function updateActiveTime() {
+            const now = new Date();
+            const diff = Math.floor((now - stats.startTime) / 1000);
+            const minutes = Math.floor(diff / 60);
+            const seconds = diff % 60;
+            document.getElementById('activeTime').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
         
-        // Add some initial effects
-        window.addEventListener('load', () => {
-            showAlert('🚀 نظام التشفير السبراني جاهز للعمل!\nاختر ملف Python وابدأ التشفير.', 'info');
-            
-            // Auto-select first method
-            if(state.encryptionMethods.length > 0) {
-                setTimeout(() => selectMethod(state.encryptionMethods[0]), 1000);
-            }
-        });
+        setInterval(updateActiveTime, 1000);
         
-        // Add keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
-            // Ctrl/Cmd + E for encrypt
-            if((e.ctrlKey || e.metaKey) && e.key === 'e') {
-                e.preventDefault();
-                document.getElementById('encryptBtn').click();
-            }
-            
-            // Ctrl/Cmd + S for download
-            if((e.ctrlKey || e.metaKey) && e.key === 's') {
-                e.preventDefault();
-                if(!document.getElementById('downloadBtn').disabled) {
-                    document.getElementById('downloadBtn').click();
+        // Terminal-like typing effect for instructions
+        const instructions = [
+            "مرحبا بموقع ايمو للتشفير الادوات ",
+            "1. اࢪفـع ملفك الان وشفره بتفشير قوي ",
+            "2. اختر طريقة التشفير",
+            "3. انقر على زر التشفير",
+            "4. حمل الملف المشفر"
+        ];
+        
+        let instructionIndex = 0;
+        let charIndex = 0;
+        const typingElement = document.querySelector('.terminal-line');
+        
+        function typeInstructions() {
+            if(instructionIndex < instructions.length) {
+                if(charIndex < instructions[instructionIndex].length) {
+                    typingElement.textContent += instructions[instructionIndex].charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeInstructions, 50);
+                } else {
+                    instructionIndex++;
+                    charIndex = 0;
+                    setTimeout(() => {
+                        typingElement.textContent = '';
+                        typeInstructions();
+                    }, 2000);
                 }
+            } else {
+                instructionIndex = 0;
+                charIndex = 0;
+                setTimeout(() => {
+                    typingElement.textContent = '';
+                    typeInstructions();
+                }, 1000);
             }
-        });
+        }
+        
+        // Start typing effect after page load
+        setTimeout(typeInstructions, 1000);
+        
+        // Add some random hacker quotes
+        const quotes = [
+            "الدخول إلى النظام...",
+            "تم التهيئة...",
+            "جاري تحميل وحدات التشفير...",
+            "النظام جاهز للتشغيل...",
+            "حماية البيانات نشطة..."
+        ];
+        
+        setInterval(() => {
+            if(Math.random() > 0.7) {
+                console.log(`%c${quotes[Math.floor(Math.random() * quotes.length)]}`, 'color: #0f0; font-weight: bold;');
+            }
+        }, 5000);
     </script>
 </body>
     </html>
